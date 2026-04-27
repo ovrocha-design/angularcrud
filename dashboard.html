@@ -43,7 +43,7 @@
 <div class="header">
   <div class="header-left">
     <h1>🎪 Dashboard Monitor — Music Circus</h1>
-    <p>PI SENAC · Turma STADSCAS2NB 2026 · Atualizado em 27/04/2026 12:56 · Gerado localmente</p>
+    <p>PI SENAC · Turma STADSCAS2NB 2026 · Atualizado em 27/04/2026 12:58 · Gerado localmente</p>
   </div>
   <div class="header-right">
     <button class="refresh-btn" id="btnAtualizar" onclick="atualizarDashboard()">
@@ -75,22 +75,22 @@
   }, 1000);
 
   // ── Hover dropdowns nos cards ─────────────────────────────────────────────
-  document.querySelectorAll('.hover-btn-wrap').forEach(wrap => {
-    const btn  = wrap.querySelector('button');
-    const drop = wrap.querySelector('.drop-panel');
-    let timer;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.hover-btn-wrap').forEach(wrap => {
+      const drop = wrap.querySelector('.drop-panel');
+      let timer;
 
-    wrap.addEventListener('mouseenter', () => {
-      clearTimeout(timer);
-      // Fecha todos os outros primeiro
-      document.querySelectorAll('.drop-panel').forEach(d => {
-        if (d !== drop) d.style.display = 'none';
+      wrap.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        document.querySelectorAll('.drop-panel').forEach(d => {
+          if (d !== drop) d.style.display = 'none';
+        });
+        drop.style.display = 'block';
       });
-      drop.style.display = 'block';
-    });
 
-    wrap.addEventListener('mouseleave', () => {
-      timer = setTimeout(() => { drop.style.display = 'none'; }, 200);
+      wrap.addEventListener('mouseleave', () => {
+        timer = setTimeout(() => { drop.style.display = 'none'; }, 200);
+      });
     });
   });
 
