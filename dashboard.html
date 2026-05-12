@@ -74,25 +74,31 @@
     }
   }, 1000);
 
-  // ── Hover dropdowns nos cards ─────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
+  // ── Click dropdowns nos cards ─────────────────────────────────────────────
+  function initDropdowns() {
     document.querySelectorAll('.hover-btn-wrap').forEach(wrap => {
+      const btn  = wrap.querySelector('button');
       const drop = wrap.querySelector('.drop-panel');
-      let timer;
+      if (!btn || !drop) return;
 
-      wrap.addEventListener('mouseenter', () => {
-        clearTimeout(timer);
-        document.querySelectorAll('.drop-panel').forEach(d => {
-          if (d !== drop) d.style.display = 'none';
-        });
-        drop.style.display = 'block';
-      });
-
-      wrap.addEventListener('mouseleave', () => {
-        timer = setTimeout(() => { drop.style.display = 'none'; }, 200);
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const aberto = drop.style.display === 'block';
+        document.querySelectorAll('.drop-panel').forEach(d => { d.style.display = 'none'; });
+        drop.style.display = aberto ? 'none' : 'block';
       });
     });
-  });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.drop-panel').forEach(d => { d.style.display = 'none'; });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDropdowns);
+  } else {
+    initDropdowns();
+  }
 
   function atualizarDashboard() {
     btn.classList.add('loading');
